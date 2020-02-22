@@ -1,0 +1,43 @@
+#! /bin/bash
+
+# Read hostname
+host=$1
+[ -z "$host" ] && read -p "target server: " host
+
+
+# Check if hostname exists
+getent hosts $host >> /dev/null
+if [ $? -ne 0 ] 
+then 
+	echo "$host does not exist"
+	exit -1
+fi
+
+# check if the user really means it
+read -p "Do you really want to remove ALL MySQL DATA from host $host? (yes/no)" reply
+if [ $reply != "yes" ] 
+then 
+	echo "ABORTING."
+	exit -1
+fi
+
+ssh $host <<EOF
+sudo bash
+systemctl stop mysqld
+rm -rf /var/lib/mysql/*
+mysqld --initialize --user=mysql
+systemctl start mysqld
+EOF
+
+set_pwd $host
+
+#sudo rm -r /var/lib/mysql
+#sudo mkdir /var/lib/mysql
+#sudo chown mysql /var/lib/mysql
+#sudo chgrp mysql /var/lib/mysql
+#sudo chmod 751 /var/lib/mysql
+#sudo semanage fcontext -a -t mysqld_db_t /var/lib/mysql
+#sudo restorecon -v /var/lib/mysql
+#sudo mysqld --initialize --user=mysql
+#sudo systemctl start mysqld
+#EOF

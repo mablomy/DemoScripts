@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#deploy MySQL EE marketplace image
+#count=`oci marketplace listing list --all --query "data[?name=='MySQL Enterprise Edition']|length(@)"`
+#[$count -ne 1]
+#	echo "More than one MySQL EE image available in Marketplace. Stopping"
+#	exit -1
+#done
+
+#count=`oci marketplace listing list --all --query "data[?name=='MySQL Enterprise Edition'].id"`
+#listing=`oci marketplace listing list --all --query "data[?name=='MySQL Enterprise Edition'].id" |jq -r ".[0]"`
+#agreement=`oci marketplace accepted-agreement list --all --query.....
+
+
+eeimage="ocid1.image.oc1..aaaaaaaa5muyfamku7e6b56enmp2dg73zympaf6n7czqxqpu7pmqitvdya2a"
+ad="--availability-domain="YOiV:EU-FRANKFURT-1-AD-3"
+shape="VM.Standard2.1"
+host="node19-3"
+oci compute instance lauch --availability-domain=$ad --shape=$shape --assign-public-ip=false --display-name=$host

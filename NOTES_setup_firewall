@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo "Opening port $1 in iptables for incoming tcp requests"
+
+firewall-cmd --zone=public --add-port=$1/tcp --permanent
+firewall-cmd --reload
+iptables-save | grep $1
+
+# -A IN_public_allow -p tcp -m tcp --dport 55555 -m conntrack --ctstate NEW -j ACCEPT
+
+# 5. Check newly added port status
+# After adding the port for httpd and reloading httpd services, notice now httpd is also listening to newly added port 55555:
+
+lsof -i -P |grep http
+netstat -na |grep $1
+

@@ -1,0 +1,38 @@
+#!/bin/bash 
+
+echo "Installing MySQL EE instance $1"
+# testing if target server name is defined                                                                                 
+target=$1                                                                                                                  
+[ -z "$target" ] && read -p "target server: " target                                                     1,20        Alles
+
+# Check if db_pwd is passed down. If not prompt user to enter password
+[ -z "$db_pwd" ] && read -p "Database password: " -s db_pwd
+
+j="{  \
+  \"assignPublicIp\": false, \
+  \"availabilityDomain\": \"YOiV:EU-FRANKFURT-1-AD-3\", \
+  \"displayName\": \"$target\", \
+  \"hostnameLabel\": \"$target\", \
+  \"imageId\": \"ocid1.image.oc1..aaaaaaaa5muyfamku7e6b56enmp2dg73zympaf6n7czqxqpu7pmqitvdya2a\", \
+  \"shape\": \"VM.Standard2.1\", \
+  \"subnetId\": \"ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaaahfoxpjehomjdkxnksjzsv7ruakh2xf246sls5ziiiib5qeda5c7q\",\
+  \"sshAuthorizedKeysFile\": \"/home/opc/.ssh/publicKey.pub\" \
+}"
+j="{}"
+echo $j
+
+oci compute instance launch \
+	--assign-public-ip=false \
+	--availability-domain="YOiV:EU-FRANKFURT-1-AD-3"\
+	--display-name=$target\
+	--hostname-label=$target\
+	--image-id="ocid1.image.oc1..aaaaaaaa5muyfamku7e6b56enmp2dg73zympaf6n7czqxqpu7pmqitvdya2a"\
+	--shape="VM.Standard2.1"\
+	--subnet-id="ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaaahfoxpjehomjdkxnksjzsv7ruakh2xf246sls5ziiiib5qeda5c7q"\
+	--ssh-authorized-keys-file=/home/opc/.ssh/publicKey.pub\
+	--max-wait-seconds=1200\
+	--wait-for-state RUNNING
+
+if [ $? -ne 0 ]; then echo "Aborted"; exit; fi
+source set_pwd.sh $host
+

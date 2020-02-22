@@ -1,0 +1,82 @@
+{
+  "agentConfig": {
+    "isManagementDisabled": true, 
+    "isMonitoringDisabled": true
+  }, 
+  "assignPublicIp": true, 
+  "availabilityDomain": "string", 
+  "bootVolumeSizeInGbs": 0, 
+  "compartmentId": "string", 
+  "dedicatedVmHostId": "string", 
+  "definedTags": {
+    "tagNamespace1": {
+      "tagKey1": "tagValue1", 
+      "tagKey2": "tagValue2"
+    }, 
+    "tagNamespace2": {
+      "tagKey1": "tagValue1", 
+      "tagKey2": "tagValue2"
+    }
+  }, 
+  "displayName": "string", 
+  "extendedMetadata": {
+    "string1": {
+      "string1": "string", 
+      "string2": "string"
+    }, 
+    "string2": {
+      "string1": "string", 
+      "string2": "string"
+    }
+  }, 
+  "faultDomain": "string", 
+  "freeformTags": {
+    "tagKey1": "tagValue1", 
+    "tagKey2": "tagValue2"
+  }, 
+  "hostnameLabel": "string", 
+  "imageId": "string", 
+  "ipxeScriptFile": "/path/to/file", 
+  "isPvEncryptionInTransitEnabled": true, 
+  "launchOptions": {
+    "bootVolumeType": "string", 
+    "firmware": "string", 
+    "isConsistentVolumeNamingEnabled": true, 
+    "networkType": "string", 
+    "remoteDataVolumeType": "string"
+  }, 
+  "maxWaitSeconds": 0, 
+  "metadata": {
+    "string1": "string", 
+    "string2": "string"
+  }, 
+  "nsgIds": [
+    "string", 
+    "string"
+  ], 
+  "privateIp": "string", 
+  "shape": "string", 
+  "skipSourceDestCheck": true, 
+  "sourceBootVolumeId": "string", 
+  "sourceDetails": [
+    "This parameter should actually be a JSON object rather than an array - pick one of the following object variants to use", 
+    {
+      "bootVolumeId": "string", 
+      "sourceType": "bootVolume"
+    }, 
+    {
+      "bootVolumeSizeInGBs": 0, 
+      "imageId": "string", 
+      "kmsKeyId": "string", 
+      "sourceType": "image"
+    }
+  ], 
+  "sshAuthorizedKeysFile": "/path/to/file", 
+  "subnetId": "string", 
+  "userDataFile": "/path/to/file", 
+  "vnicDisplayName": "string", 
+  "waitForState": [
+    "MOVING|PROVISIONING|RUNNING|STARTING|STOPPING|STOPPED|CREATING_IMAGE|TERMINATING|TERMINATED"
+  ], 
+  "waitIntervalSeconds": 0
+}

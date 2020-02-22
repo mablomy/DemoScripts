@@ -1,0 +1,24 @@
+#!/bin/bash
+
+ssh -t router << EOF
+sudo echo "[http_server]" >> /etc/mysqlrouter/mysqlrouter.conf
+sudo echo "port=8080" >> /etc/mysqlrouter/mysqlrouter.conf
+sudo echo "[rest_api]" >> /etc/mysqlrouter/mysqlrouter.conf
+sudo echo "[rest_router]" >> /etc/mysqlrouter/mysqlrouter.conf
+sudo echo "require_realm=somerealm" >> /etc/mysqlrouter/mysqlrouter.conf
+sudo echo "[rest_routing]" >> /etc/mysqlrouter/mysqlrouter.conf
+sudo echo "require_realm=somerealm" >> /etc/mysqlrouter/mysqlrouter.conf
+sudo echo "[rest_metadata_cache]" >> /etc/mysqlrouter/mysqlrouter.conf
+sudo echo "require_realm=somerealm" >> /etc/mysqlrouter/mysqlrouter.conf
+sudo echo "[http_auth_realm:somerealm]" >> /etc/mysqlrouter/mysqlrouter.conf
+sudo echo "backend=somebackend" >> /etc/mysqlrouter/mysqlrouter.conf
+sudo echo "method=basic" >> /etc/mysqlrouter/mysqlrouter.conf
+sudo echo "name=Some Realm" >> /etc/mysqlrouter/mysqlrouter.conf
+sudo echo "[http_auth_backend:somebackend]" >> /etc/mysqlrouter/mysqlrouter.conf
+sudo echo "backend=file" >> /etc/mysqlrouter/mysqlrouter.conf
+sudo echo "filename=/etc/mysqlrouter/mysqlrouter.pwd" >> /etc/mysqlrouter/mysqlrouter.conf
+
+sudo mysqlrouter_passwd set /etc/mysqlrouter/mysqlrouter.pwd routerroot
+sudo systemctl restart mysqlrouter
+EOF
+

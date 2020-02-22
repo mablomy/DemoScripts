@@ -1,0 +1,3 @@
+#! /bin/bash
+
+oci compute instance list --query 'data[*].{"host":"display-name", "status":"lifecycle-state"}' --output=table

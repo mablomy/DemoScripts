@@ -1,0 +1,27 @@
+#!/bin/bash
+echo "Setting root password for MySQL instance on server $1"
+
+# testing if target server name is defined
+target=$1
+[ -z "$target" ] && read -p "target server: " target
+
+# Check if db_pwd is passed down. If not prompt user to enter password
+[ -z "$db_pwd" ] && read -p "Database password: " -s db_pwd
+
+echo -n "waiting for server startup ..."
+until mysqladmin -h$target ping 2> /dev/null; do echo -n "."; sleep 1; done
+echo
+
+echo "Retreiving temporary MySQL password..."
+tpwd=`ssh $target 'sudo grep "A temporary password is generated for root@localhost: " /var/log/mysqld.log | tail --bytes=13'`
+
+echo Setting root password and creating 'root'@'%' ...
+ssh $target << EOF
+mysql -h 127.0.0.1 -uroot -p"$tpwd" --connect-expired-password 2> /dev/null -e "SET PASSWORD = '$db_pwd';CREATE USER 'root'@'%' IDENTIFIED BY '$db_pwd'; GRANT ALL ON *.* TO 'root'@'%' WITH GRANT OPTION;"
+
+EOF
+
+mysqlsh << EOF
+shell.storeCredential("root@$target", "$db_pwd")
+EOF
+
