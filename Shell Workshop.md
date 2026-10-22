@@ -14,7 +14,8 @@
 * [09 — Diagnostics](#09--diagnostics)
 * [10 — Scripting](#10--scripting)
 * [11 — Custom Plugin](#11--custom-plugin)
-* [12 — Community Plugins](#12--community-plugins)
+* [12 — Community Plugins: Audit](#12--community-plugins-audit)
+* [13 — Community Plugins: LeFred](#13--community-plugins-lefred)
 * [99 — Cleanup](#99--cleanup)
 
 ---
