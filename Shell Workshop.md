@@ -700,6 +700,16 @@ cluster.status()
 cluster.status().defaultReplicaSet.topology
 ```
 
+### Simplify Cluster operations
+```Shell
+mysqlsh root@demo1 --js --cluster
+```
+
+```Javascript
+cluster.execute("SELECT @@hostname", "all")
+```
+
+
 ## Expected observations
 
 [↑ Back to Contents](#contents)
@@ -900,7 +910,7 @@ workshop.info()
 
 ---
 
-# 12 — Community Plugins
+# 12 — Community Plugins Audit
 
 ## Prerequisites
 
@@ -1016,6 +1026,35 @@ jq '.[] | select(.class == "connection") |
 [↑ Back to Contents](#contents)
 
 ---
+
+# 13 — Community Plugins LeFred
+
+## Prerequisites
+Clone LeFred's github
+```bash
+mkdir ~/.mysqlsh/LeFred
+git clone https://github.com/lefred/mysqlshell-plugins.git ~/.mysqlsh/LeFred/
+```
+Copy the wanted plugins to the plugin directory and Restart Shell
+
+```bash
+cp -r .mysqlsh/LeFred/security .mysqlsh/plugins/
+cp -r .mysqlsh/LeFred/user     .mysqlsh/plugins/
+mysqlsh --js --cluster root@demo1
+```
+
+## Commands
+```text
+\h
+user.create_user()
+security.showPasswordExpireSoon()
+security.showPasswordExpire()
+```
+
+[↑ Back to Contents](#contents)
+
+---
+
 
 # 99 — Cleanup
 
