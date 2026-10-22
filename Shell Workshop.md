@@ -376,6 +376,36 @@ FROM performance_schema.processlist;
 
 ---
 
+# 03a - Built-in Reports
+
+## Prerequisites
+
+* MySQL Shell connected in JavaScript mode
+
+## Commands
+
+### All Threads, individual Threads, arbitrary SQL
+List available threads from Performance_Schema for current session or arbitrary connection
+```text
+\show Threads
+```
+Pick your favorite thread ID ("tid") and run
+```text
+\watch Thread --tid=<tid> --interval=1
+<CTRL>-C
+```
+
+```text
+\watch query "select query, exec_count, err_count, warn_count, total_latency, max_latency from statement_analysis ORDER BY exec_count DESC LIMIT 10;"
+<CTRL>-C
+```
+
+
+[↑ Back to Contents](#contents)
+
+---
+
+
 # 04 — Utilities Overview
 
 ## Prerequisites
