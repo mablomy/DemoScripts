@@ -6,6 +6,7 @@
 * [01 — Start Shell and Connect](#01--start-shell-and-connect)
 * [02 — Shell Modes and Commands](#02--shell-modes-and-commands)
 * [03 — Productivity Features](#03--productivity-features)
+* [03a— Built-in Reports](#03a--built-in-reports)
 * [04 — Utilities Overview](#04--utilities-overview)
 * [05 — Dump & Load](#05--dump--load)
 * [06 — Binary Log Dump / Load](#06--binary-log-dump--load)
@@ -394,7 +395,10 @@ Pick your favorite thread ID ("tid") and run
 \watch Thread --tid=<tid> --interval=1
 <CTRL>-C
 ```
-
+```text
+\watch query "SELECT now();"
+<CTRL>-C
+```
 ```text
 \watch query "select query, exec_count, err_count, warn_count, total_latency, max_latency from statement_analysis ORDER BY exec_count DESC LIMIT 10;"
 <CTRL>-C
